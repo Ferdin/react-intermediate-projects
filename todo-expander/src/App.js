@@ -1,4 +1,5 @@
 import "./styles.css";
+import { useState } from "react";
 
 export default function App() {
   return (
@@ -34,6 +35,58 @@ export default function App() {
   );
 }
 
-function TextExpander() {
-  return <div>TODO</div>;
+// Logic
+/*
+
+- When button is clicked, the "show more" state need to be changed to "show less". 
+- if state is show more then collapsedWords = `${children.substring(0, collapsedNumWords)}...`
+- else collapsedWords = children;
+- 
+*/
+
+function TextExpander({
+  collapsedNumWords = 15,
+  expandButtonText = "Show More",
+  collapseButtonText = "Show Less",
+  className = "",
+  children,
+  buttonColor = "blue",
+}) {
+  const [showState, setShowState] = useState(true);
+
+  function handleShowState() {
+    setShowState((show) => !show);
+  }
+  const collapsedWords = showState
+    ? `${children.substring(0, collapsedNumWords)}...`
+    : children;
+  return (
+    <div className={className}>
+      {collapsedWords}
+      <Button
+        handleShowState={handleShowState}
+        expandButtonText={expandButtonText}
+        expanded={showState}
+        collapseButtonText={collapseButtonText}
+        buttonColor={buttonColor}
+      />
+    </div>
+  );
+}
+
+function Button({
+  handleShowState,
+  expandButtonText,
+  expanded,
+  collapseButtonText,
+  buttonColor,
+}) {
+  const style = {
+    color: buttonColor,
+  };
+  return (
+    <button onClick={handleShowState} style={style}>
+      {expanded ? expandButtonText : collapseButtonText}
+    </button>
+  );
 }
