@@ -1,0 +1,39 @@
+RULES OF HOOKS
+
+We should not conditionally set the hooks in react. This can mess up the linked list of hooks that was placed in order.
+
+Avoid early return. This can skip the hooks succeeding to the return JSX block.
+
+-------------------
+
+MORE DETAILS OF USESTATE
+
+Creating a state
+Simple
+eg:- const [count, setCount] = useState(23)
+
+Based on Function
+
+eg:- const [count, setCount] = useState(
+    () => localStorage.getItem('count')
+)
+
+Updating state
+Simple
+eg:- setCount(1000)
+
+Based on current state
+eg:- setCount((c) => c + 1)
+
+Make sure that you should not mutate arrays or objects, but replace them with new one.
+
+-------------------
+
+REUSING LOGIC WITH CUSTOM HOOKS
+
+If you need to reuse UI then go for Component.
+
+If you need to reuse Logic then there are two question that you would need to answer. Does the logic contain any hooks? If it is no then use a regular function. If the answer is yes, it you would need to use a custom hook.
+
+-------------------
+
